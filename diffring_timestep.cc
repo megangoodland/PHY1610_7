@@ -5,6 +5,7 @@
 //
 
 #include "diffring_timestep.h"
+#include <iostream>
 #include <cblas.h>
 #include <cmath>
 
