@@ -6,8 +6,10 @@
 
 #include "diffring_timestep.h"
 #include <iostream>
+#include <rarrayio>
 #include <cblas.h>
 #include <cmath>
+using namespace std;
 
 // perform a single time step for the random walkers
 void diffring_timestep(const rarray<double,2>& F, rarray<double,1>& P)
@@ -37,5 +39,5 @@ void diffring_fill_timestep_matrix(rarray<double,2>& F, double D, double dt, dou
     // Adding ring boundary conditions:
     F[0][n-1]=a;
     F[n-1][0]=a;
-    std::cout << F << std::endl; // want to make sure it worked
+    cout << F << endl; // want to make sure it worked
 }
