@@ -19,7 +19,7 @@ void diffring_timestep(const rarray<double,2>& F, rarray<double,1>& P)
     for (int i=0; i<n; i++){
         Pi[i]=P[i]; // copying P to Pi, which will hold the previous P vector. P will be P_i+1.
     }
-    cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, F, n, Pi, 1, 0.0, P, 1);
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, F[0], n, Pi, 1, 0.0, P, 1);
     
 }
 
