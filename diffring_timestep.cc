@@ -26,7 +26,7 @@ void diffring_timestep(const rarray<double,2>& F, rarray<double,1>& P)
             F2[i][j] = F[i][j];
         }
     }
-    cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, F2, n, Pi, 1, 0.0, P, 1);
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, F2[0], n, Pi, 1, 0.0, P, 1);
     
 }
 
