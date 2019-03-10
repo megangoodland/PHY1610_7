@@ -33,10 +33,10 @@
 //
 void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 {
-    int Z = walkerpositions.size(); // number of walkers? This is length of the vector.
+    int Z = walkerpositions.size(); // number of walkers. This is length of the vector.
     std::random_device rd; // use random_device once to seed the random number generator named mt.
     std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(0, 1); //[0,1)
+    std::uniform_real_distribution<double> dist(0.0000, 1.0000); //[0,1)
     
     for (int i=0; i<Z; i++){ // looping through walker positions
             
@@ -48,7 +48,7 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
                 if (walkerpositions[i] < 0){ walkerpositions[i] = (N-1);}
             }
                 
-            else if (random_num < (2*prob)) { // if [p,2p) move right
+            if ((random_num < (2*prob)) && (random_num >= prob)) { // if [p,2p) move right
                 walkerpositions[i] = walkerpositions[i]+1; // move right
                 // if that move right caused position to be N, that segment is actually 0
                 if (walkerpositions[i] > (N-1)){ walkerpositions[i] = 0;}
