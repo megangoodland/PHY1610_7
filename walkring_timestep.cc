@@ -37,12 +37,12 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 
     std::cout << "Z = " << Z << " N is: " << N << std::endl;
     // want to produce a random number between 0 and 1. 
-    rarray<int,1> walkerpositions_new(N); // array to hold new walker positions
+    rarray<int,1> walkerpositions_new(Z); // array to hold new walker positions
     std::random_device rd; // use random_device once to seed the random number generator named mt.
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(0, 1); //[0,1)
     
-    for (int i=0; i<N; i++){ // looping through walker positions
+    for (int i=0; i<Z; i++){ // looping through walker positions
         int total = walkerpositions[i]; // total is number of walkers in position i
         
         if (total > 0) {
@@ -51,7 +51,7 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
                 double random_num = dist(mt); // gets a random number between 0 and 1
                 
                 if (random_num < prob) { // if [0,p) move left
-                    if(i=0){walkerpositions_new[N-1]= walkerpositions_new[N-1]+1;} // if we're at 0, it has to go to N-1
+                    if(i=0){walkerpositions_new[Z-1]= walkerpositions_new[Z-1]+1;} // if we're at 0, it has to go to N-1
                     else {walkerpositions_new[i-1]= walkerpositions_new[i-1]+1;} // otherwise just put it to the left
                 }
                 
@@ -66,7 +66,7 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
         }
     }
     
-    for (int k=0; k<N; k++){ // looping through walker positions, copy walkerpositions_new to walker_positions
+    for (int k=0; k<Z; k++){ // looping through walker positions, copy walkerpositions_new to walker_positions
         walkerpositions_new[k]=walkerpositions[k];
     }
         
