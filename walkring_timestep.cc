@@ -52,7 +52,7 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
             else if (random_num < (2*prob)) { // if [p,2p) move right
                 walkerpositions[i] = walkerpositions[i]+1; // move right
                 // if that move right caused position to be N, that segment is actually 0
-                if (walkerpositions[i] > N){ walkerpositions[i] = 0;}
+                if (walkerpositions[i] > (N-1)){ walkerpositions[i] = 0;}
             }      
     }
         
