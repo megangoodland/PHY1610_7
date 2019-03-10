@@ -5,6 +5,7 @@
 //
 
 #include "walkring_timestep.h"
+#include <iostream>
 #include <random>
 #include <cfloat>
 
