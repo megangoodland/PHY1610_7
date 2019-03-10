@@ -34,7 +34,7 @@
 void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 {
     int Z = walkerpositions.size(); // number of walkers? This is length of the vector.
-
+    std::cout << "Z = " << Z << " N = " << N << std::endl;
     std::random_device rd; // use random_device once to seed the random number generator named mt.
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(0, 1); //[0,1)
