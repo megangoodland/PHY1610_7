@@ -33,45 +33,30 @@
 //
 void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 {
-    int Z = walkerpositions.size(); // number of walkers?
-    int Z2 = walkerpositions.extent(0);
-    std::cout << "Z = " << Z << " Z2 is: " << Z2 << std::endl;
-    // want to produce a random number between 0 and 1. 
-    rarray<int,1> walkerpositions_new(Z); // array to hold new walker positions
+    int Z = walkerpositions.size(); // number of walkers? This is length of the vector.
+
     std::random_device rd; // use random_device once to seed the random number generator named mt.
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(0, 1); //[0,1)
     
     for (int i=0; i<Z; i++){ // looping through walker positions
-        int total = walkerpositions[i]; // total is number of walkers in position i
-        std::cout << "number of walkers in i is (total) = " << total << std::endl;
+        
         if (total > 0) {
-            std::cout << "after if total > 0" << std::endl;
-            for (int j=0; j<total; j++){ // looping through walkers in position i
-                double random_num = dist(mt); // gets a random number between 0 and 1
-                std::cout << "our random number is " << random_num << std::endl;
-                if (random_num < prob) { // if [0,p) move left
-                    std::cout << "our random number is less than prob: " << prob << std::endl;
-                    if(i=0) {walkerpositions_new[Z-1]= walkerpositions_new[Z-1]+1;} // if we're at 0, it has to go to N-1
-                    
-                    else {walkerpositions_new[i-1]= walkerpositions_new[i-1]+1;} // otherwise just put it to the left
-                }
-                
-                else if (random_num < (2*prob)) { // if [p,2p) move right
-                    std::cout << "our random number is more than prob but less than 2p: " << prob << std::endl;
-                    if (i=(N-1)){walkerpositions_new[0]= walkerpositions_new[0]+1;} // if we're at the end, it has to go to 0
-                    else {walkerpositions_new[i+1]= walkerpositions_new[i+1]+1;} // otherwise just put it to the right
-                } 
-                
-                else { // if [2p, 1) don't move
-                    std::cout << "our random number means dont move: " << prob << std::endl;
-                    walkerpositions_new[i]= walkerpositions_new[i]+1;} 
+            
+            double random_num = dist(mt); // gets a random number between 0 and 1
+ 
+            if (random_num < prob) { // if [0,p) move left
+                walkerpositions[i] = walkerpositions[i]-1; // move left
+                // if that move left caused position to be -1, that segment is actually N-1
+                if (walkerpositions[i] < 0){ walkerpositions[i] = (N-1);}
             }
+                
+            else if (random_num < (2*prob)) { // if [p,2p) move right
+                walkerpositions[i] = walkerpositions[i]+1; // move right
+                // if that move right caused position to be N, that segment is actually 0
+                if (walkerpositions[i] > N){ walkerpositions[i] = 0;}
+            }      
         }
-    }
-    
-    for (int k=0; k<Z; k++){ // looping through walker positions, copy walkerpositions_new to walker_positions
-        walkerpositions_new[k]=walkerpositions[k];
     }
         
 
