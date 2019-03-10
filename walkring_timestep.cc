@@ -40,13 +40,13 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(0, 1); //[0,1)
     
-    for (i=0; i<N; i++){ // looping through walker positions
+    for (int i=0; i<N; i++){ // looping through walker positions
         int total = walkerpositions[i]; // total is number of walkers in position i
         
         if (total > 0) {
           
-            for (j=0; j<total; j++){ // looping through walkers in position i
-                random_num = dist(mt); // gets a random number between 0 and 1
+            for (int j=0; j<total; j++){ // looping through walkers in position i
+                double random_num = dist(mt); // gets a random number between 0 and 1
                 
                 if (random_num < prob) { // if [0,p) move left
                     if(i=0){walkerpositions_new[N-1]= walkerpositions_new[N-1]+1;} // if we're at 0, it has to go to N-1
@@ -64,7 +64,7 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
         }
     }
     
-    for (i=0; i<N; i++){ // looping through walker positions, copy walkerpositions_new to walker_positions
+    for (int i=0; i<N; i++){ // looping through walker positions, copy walkerpositions_new to walker_positions
         walkerpositions_new[i]=walkerpositions[i];
     }
         
