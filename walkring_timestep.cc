@@ -40,8 +40,6 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
     std::uniform_real_distribution<double> dist(0, 1); //[0,1)
     
     for (int i=0; i<Z; i++){ // looping through walker positions
-        
-        if (total > 0) {
             
             double random_num = dist(mt); // gets a random number between 0 and 1
  
@@ -56,7 +54,6 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
                 // if that move right caused position to be N, that segment is actually 0
                 if (walkerpositions[i] > N){ walkerpositions[i] = 0;}
             }      
-        }
     }
         
 
