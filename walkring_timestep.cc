@@ -32,11 +32,12 @@
 //
 void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 {
-    ////////////////////////////////////////////////
-    //                                            //
-    // IMPLEMENT THIS AS PART OF YOUR ASSIGNMENT! //
-    //                                            //
-    ////////////////////////////////////////////////
+    int Z = walkerpositions.size(); // number of walkers
+    // want to produce a random number between 0 and 1. 
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(0, std::nextafter(1, DBL_MAX)); //[a,b]
+    std::cout << dist(mt) << "\n";
 }
 
 
