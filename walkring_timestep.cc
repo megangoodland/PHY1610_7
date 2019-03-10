@@ -33,7 +33,9 @@
 //
 void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 {
-    //int Z = walkerpositions.size(); // number of walkers
+    int Z = walkerpositions.size(); // number of walkers?
+    int x = walkerpositions.extent();
+    std::cout << "Z = " << Z << " extent of walkerpositions is: " << x << " N is: " << N << std::endl;
     // want to produce a random number between 0 and 1. 
     rarray<int,1> walkerpositions_new(N); // array to hold new walker positions
     std::random_device rd; // use random_device once to seed the random number generator named mt.
