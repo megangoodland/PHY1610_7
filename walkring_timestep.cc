@@ -64,8 +64,8 @@ void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
         }
     }
     
-    for (int i=0; i<N; i++){ // looping through walker positions, copy walkerpositions_new to walker_positions
-        walkerpositions_new[i]=walkerpositions[i];
+    for (int k=0; k<N; k++){ // looping through walker positions, copy walkerpositions_new to walker_positions
+        walkerpositions_new[k]=walkerpositions[k];
     }
         
 
