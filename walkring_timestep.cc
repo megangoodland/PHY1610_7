@@ -7,7 +7,6 @@
 #include "walkring_timestep.h"
 #include <iostream>
 #include <random>
-#include <cfloat>
 
 // Perform a single time step for the random walkers
 //
@@ -29,17 +28,47 @@
 //
 //  the content of the walkerpositions arrays should have changed to
 //  reflect the random movement of all walker (i.e., they will each
-//  have been given a chance to move on position to the left or two
+//  have been given a chance to move on position to the left or to
 //  the right).
 //
 void walkring_timestep(rarray<int,1>& walkerpositions, int N, double prob)
 {
-    int Z = walkerpositions.size(); // number of walkers
+    //int Z = walkerpositions.size(); // number of walkers
     // want to produce a random number between 0 and 1. 
-    std::random_device rd;
+    rarray<int,1> walkerpositions_new(N); // array to hold new walker positions
+    std::random_device rd; // use random_device once to seed the random number generator named mt.
     std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(0, std::nextafter(1, DBL_MAX)); //[a,b]
-    std::cout << dist(mt) << "\n";
+    std::uniform_real_distribution<double> dist(0, 1); //[0,1)
+    
+    for (i=0; i<N; i++){ // looping through walker positions
+        int total = walkerpositions[i]; // total is number of walkers in position i
+        
+        if (total > 0) {
+          
+            for (j=0; j<total; j++){ // looping through walkers in position i
+                random_num = dist(mt); // gets a random number between 0 and 1
+                
+                if (random_num < prob) { // if [0,p) move left
+                    if(i=0){walkerpositions_new[N-1]= walkerpositions_new[N-1]+1;} // if we're at 0, it has to go to N-1
+                    else {walkerpositions_new[i-1]= walkerpositions_new[i-1]+1;} // otherwise just put it to the left
+                }
+                
+                else if (random_num < (2*prob)) { // if [p,2p) move right
+                    if (i=(N-1)){walkerpositions_new[0]= walkerpositions_new[0]+1;} // if we're at the end, it has to go to 0
+                    else {walkerpositions_new[i+1]= walkerpositions_new[i+1]+1;} // otherwise just put it to the right
+                } 
+                
+                else { // if [2p, 1) don't move
+                    walkerpositions_new[i]= walkerpositions_new[i]+1;} 
+            }
+        }
+    }
+    
+    for (i=0; i<N; i++){ // looping through walker positions, copy walkerpositions_new to walker_positions
+        walkerpositions_new[i]=walkerpositions[i];
+    }
+        
+
 }
 
 
