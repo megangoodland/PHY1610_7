@@ -15,18 +15,22 @@ using namespace std;
 void diffring_timestep(const rarray<double,2>& F, rarray<double,1>& P)
 {
     int n = F.extent(0); // F will be a square matrix
-    rarray<double,1> Pi(n); 
+    //rarray<double,1> Pi(n); 
     double F2[n][n];
-    //double P2[n];
-    //double Pi[n];
+    double P2[n];
+    double Pi[n];
+    // Have to change array types for cblas_dgemv inputs to work
     for (int i=0; i<n; i++){
-        //P2[i] = P[i];
+        P2[i] = P[i];
         Pi[i] = P[i];  // copying P to Pi, which will hold the previous P vector. P will be P_i+1.
         for (int j=0; j<n; j++){
             F2[i][j] = F[i][j];
         }
     }
-    cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, F2[0], n, Pi, 1, 0.0, P, 1);
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, F2[0], n, Pi, 1, 0.0, P2, 1);
+    
+    // Now copy P2 over to P rarray
+    for (int i=0; i<n; i++){ P[i]=P2[i];}
     
 }
 
