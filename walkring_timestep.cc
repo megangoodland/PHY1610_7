@@ -6,6 +6,7 @@
 
 #include "walkring_timestep.h"
 #include <random>
+#include <cfloat>
 
 // Perform a single time step for the random walkers
 //
